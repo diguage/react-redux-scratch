@@ -13,14 +13,18 @@ export const connect = mapStateToProps => WrappedComponent => {
     }
 
     componentWillMount() {
-      const { store } = this.context;
+      const { store } = this.__getContextValue();
       this._updateProps();
       store.subscribe(() => this._updateProps());
     }
 
+    __getContextValue() {
+      return this.context;
+    }
+
     _updateProps() {
-      const { store } = this.context;
-      let stateProps = mapStateToProps(this.state.getState(), this.props);
+      const { store } = this.__getContextValue();
+      let stateProps = mapStateToProps(store.getState(), this.props);
       this.setState({
         allProps: {
           ...stateProps,
