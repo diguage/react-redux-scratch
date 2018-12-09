@@ -8,8 +8,9 @@ class ThemeSwitch extends Component {
   };
 
   handleSwitchColor(color) {
-    const { store } = this.context;
-    store.dispatch({ type: "CHANGE_COLOR", themeColor: color });
+    if (this.props.onSwitchColor) {
+      this.props.onSwitchColor(color);
+    }
   }
 
   render() {
@@ -38,6 +39,17 @@ const mapStateToProps = state => {
   };
 };
 
-ThemeSwitch = connect(mapStateToProps)(ThemeSwitch);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSwitchColor: color => {
+      dispatch({ type: "CHANGE_COLOR", themeColor: color });
+    }
+  };
+};
+
+ThemeSwitch = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ThemeSwitch);
 
 export default ThemeSwitch;
