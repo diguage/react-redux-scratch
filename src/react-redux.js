@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const connect = mapStateToProps => WrappedComponent => {
   class Connect extends Component {
-    static contextType = {
+    static contextTypes = {
       store: PropTypes.object
     };
 
